@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "seed": "node src/seed/masterAdmin.js",
     "seed:posts": "node src/seed/samplePosts.js",
-    "seed:all": "node src/seed/masterAdmin.js && node src/seed/samplePosts.js"
+    "seed:blog": "node src/seed/blogContent.js",
+    "seed:all": "node src/seed/masterAdmin.js && node src/seed/samplePosts.js && node src/seed/blogContent.js"
   },
   "keywords": [],
   "author": "",

@@ -93,7 +93,7 @@ export default function MyPostsPage() {
               <div className="flex-1 min-w-0">
                 <h3 className="font-medium text-sm truncate">{post.title}</h3>
                 <div className="flex items-center gap-3 mt-0.5 text-xs text-muted-foreground">
-                  <span className={`capitalize ${post.status === 'published' ? 'text-green-600 dark:text-green-400' : 'text-orange-500'}`}>
+                  <span className={`capitalize font-semibold ${post.status === 'published' ? 'text-green-600' : 'text-amber-600'}`}>
                     {post.status}
                   </span>
                   <span>·</span>

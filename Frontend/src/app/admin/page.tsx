@@ -248,9 +248,9 @@ export default function AdminPage() {
           { label: 'Admins', value: usersData?.data?.filter((u: User) => ['admin', 'master_admin'].includes(u.role)).length ?? '—', icon: Shield },
         ].map(({ label, value, icon: Icon }) => (
           <div key={label} className="bg-card border border-border rounded-2xl p-5">
-            <Icon className="w-5 h-5 text-muted-foreground mb-2" />
-            <p className="text-2xl font-bold">{value}</p>
-            <p className="text-sm text-muted-foreground">{label}</p>
+            <Icon className="w-5 h-5 text-primary mb-3" />
+            <p className="text-2xl font-bold text-foreground">{value}</p>
+            <p className="text-sm font-medium text-foreground/60 mt-0.5">{label}</p>
           </div>
         ))}
       </div>
@@ -276,12 +276,12 @@ export default function AdminPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border bg-muted/30">
-                  <th className="text-left px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">User</th>
-                  <th className="text-left px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Role</th>
-                  <th className="text-left px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Status</th>
-                  <th className="text-left px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Joined</th>
-                  <th className="text-right px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Actions</th>
+                <tr className="border-b border-border bg-muted/50">
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">User</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Role</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Status</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Joined</th>
+                  <th className="text-right px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -293,14 +293,15 @@ export default function AdminPage() {
                       <div className="flex items-center gap-3">
                         <UserAvatar user={u} size="sm" />
                         <div>
-                          <p className="font-medium text-sm">{u.name}</p>
-                          <p className="text-xs text-muted-foreground">{u.email}</p>
+                          <p className="font-semibold text-sm text-foreground">{u.name}</p>
+                          <p className="text-xs text-foreground/60 mt-0.5">{u.email}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-5 py-4">
                       {u.role === 'master_admin' ? (
-                        <span className="px-2.5 py-1 bg-purple-100 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-full">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white/80" />
                           Master Admin
                         </span>
                       ) : (
@@ -308,7 +309,7 @@ export default function AdminPage() {
                           value={u.role}
                           onChange={(e) => assignRole.mutate({ userId: u._id, role: e.target.value })}
                           disabled={u._id === user._id}
-                          className="px-2.5 py-1 bg-background border border-border rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-ring disabled:opacity-50"
+                          className="px-2.5 py-1.5 bg-background border border-border rounded-lg text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50 cursor-pointer"
                         >
                           {ROLE_OPTIONS.map((r) => (
                             <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>
@@ -317,15 +318,16 @@ export default function AdminPage() {
                       )}
                     </td>
                     <td className="px-5 py-4">
-                      <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-full border ${
                         u.isActive
-                          ? 'bg-green-100 dark:bg-green-950/30 text-green-600 dark:text-green-400'
-                          : 'bg-red-100 dark:bg-red-950/30 text-red-600 dark:text-red-400'
+                          ? 'bg-green-500 text-white border-green-600'
+                          : 'bg-red-500 text-white border-red-600'
                       }`}>
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/80" />
                         {u.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </td>
-                    <td className="px-5 py-4 text-sm text-muted-foreground">{formatDate(u.createdAt)}</td>
+                    <td className="px-5 py-4 text-sm text-foreground/70">{formatDate(u.createdAt)}</td>
                     <td className="px-5 py-4">
                       <div className="flex items-center justify-end gap-1">
                         {u.role !== 'master_admin' && u._id !== user._id && (
@@ -372,12 +374,12 @@ export default function AdminPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border bg-muted/30">
-                  <th className="text-left px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Post</th>
-                  <th className="text-left px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Author</th>
-                  <th className="text-left px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Status</th>
-                  <th className="text-left px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Date</th>
-                  <th className="text-right px-5 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wide">Actions</th>
+                <tr className="border-b border-border bg-muted/50">
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Post</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Author</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Status</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Date</th>
+                  <th className="text-right px-5 py-3.5 text-xs font-semibold text-foreground/70 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -386,20 +388,21 @@ export default function AdminPage() {
                 ) : postsData?.data?.map((post: Post) => (
                   <tr key={post._id} className="border-b border-border last:border-0 hover:bg-muted/20 transition-colors">
                     <td className="px-5 py-4">
-                      <p className="font-medium text-sm line-clamp-1">{post.title}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">❤️ {post.likesCount ?? 0} · 💬 {post.commentsCount ?? 0}</p>
+                      <p className="font-semibold text-sm text-foreground line-clamp-1">{post.title}</p>
+                      <p className="text-xs text-foreground/60 mt-0.5">❤️ {post.likesCount ?? 0} · 💬 {post.commentsCount ?? 0}</p>
                     </td>
-                    <td className="px-5 py-4 text-sm text-muted-foreground">{post.author.name}</td>
+                    <td className="px-5 py-4 text-sm font-medium text-foreground">{post.author.name}</td>
                     <td className="px-5 py-4">
-                      <span className={`px-2.5 py-1 text-xs font-medium rounded-full capitalize ${
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-full capitalize ${
                         post.status === 'published'
-                          ? 'bg-green-100 dark:bg-green-950/30 text-green-600 dark:text-green-400'
-                          : 'bg-orange-100 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400'
+                          ? 'bg-green-500 text-white'
+                          : 'bg-amber-500 text-white'
                       }`}>
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/80" />
                         {post.status}
                       </span>
                     </td>
-                    <td className="px-5 py-4 text-sm text-muted-foreground">{formatDate(post.createdAt)}</td>
+                    <td className="px-5 py-4 text-sm text-foreground/70">{formatDate(post.createdAt)}</td>
                     <td className="px-5 py-4">
                       <div className="flex items-center justify-end gap-1">
                         {post.status === 'published' && (
