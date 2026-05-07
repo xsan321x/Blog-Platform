@@ -1,5 +1,6 @@
 [variables]
 NODE_VERSION = "20"
+HOSTNAME = "0.0.0.0"
 
 [phases.build]
 cmds = [
